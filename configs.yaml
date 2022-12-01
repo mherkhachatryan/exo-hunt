@@ -1,0 +1,7 @@
+save_path: ""
+saved_model_path: ""
+run_mode: "train" # One of ["train", "test"] in the case of train the best model will be saved in the logs file
+random_state: 42
+data_path: "" # Path to the Dataset directory
+oversample: False # One of [True, False]
+model: GradientBoosting # One of ["GradientBoosting", "RandomForest"]
