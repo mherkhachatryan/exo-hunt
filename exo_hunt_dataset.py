@@ -14,7 +14,7 @@ class ExoHuntDataset:
 
         X = data.drop("LABEL", axis=1)
         y = data.loc[:, "LABEL"]
-
+        print("[*] Data Loaded successfully!")
         return X, y
 
     def load_train_data(self):
@@ -24,7 +24,7 @@ class ExoHuntDataset:
         X, y = self.load_train_data()
         X_train, X_valid, y_train, y_valid = train_test_split(X,
                                                               y,
-                                                              test_size=0.2,
+                                                              test_size=split_size,
                                                               random_state=random_state)
         return X_train, X_valid, y_train, y_valid
 

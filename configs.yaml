@@ -1,7 +1,14 @@
-save_path: ""
+save_path: "./logs/RandomForest"
 saved_model_path: ""
 run_mode: "train" # One of ["train", "test"] in the case of train the best model will be saved in the logs file
 random_state: 42
-data_path: "" # Path to the Dataset directory
+data_path: "path/to/data" # Path to the Dataset directory
 oversample: False # One of [True, False]
-model: GradientBoosting # One of ["GradientBoosting", "RandomForest"]
+model: "GradientBoosting" # One of ["GradientBoosting", "RandomForest"]
+
+# Below are the parameters for GradientBoosting, for RandomForest they should be adjusted accordingly
+model_params:
+  learning_rate: 0.1
+  n_estimators: 2
+  criterion: "friedman_mse" # one of ["friedman_mse", "squared_error", "mse"]
+  min_samples_split: 2

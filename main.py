@@ -15,6 +15,7 @@ class RunConfigs:
     data_path: str
     oversample: bool
     model: str
+    model_params: dict
 
 
 with open("configs.yaml", "r") as f:
@@ -24,7 +25,7 @@ configs = RunConfigs(**_configs)
 dataset = ExoHuntDataset(configs.data_path)
 
 if configs.run_mode == "train":
-    model = ExoHuntModel(configs.model, configs.random_state)
+    model = ExoHuntModel(configs.model, configs.model_params, configs.random_state)
     X_train, X_valid, y_train, y_valid = dataset.load_train_val_data(split_size=0.3,
                                                                      random_state=configs.random_state)
     model.train(X_train, y_train)
