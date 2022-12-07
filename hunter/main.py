@@ -1,22 +1,8 @@
-from dataclasses import dataclass
-
 import yaml
 
+from validation import RunConfigs
 from model import ExoHuntModel
 from preprocessing import ExoHuntDataset
-
-
-@dataclass
-class RunConfigs:
-    save_path: str
-    saved_model_path: str
-    run_mode: str
-    random_state: int
-    data_path: str
-    model: str
-    model_params: dict
-    split_size: float
-
 
 with open("hunter/configs.yaml", "r") as f:
     _configs = yaml.load(f, yaml.FullLoader)
