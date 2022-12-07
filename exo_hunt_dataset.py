@@ -1,10 +1,14 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.decomposition import PCA
+from imblearn.over_sampling import SMOTE
 
 
 class ExoHuntDataset:
-    def __init__(self, dataset_path):
+    def __init__(self, dataset_path, random_state=42, pca_components=24):
         self.dataset_path = dataset_path
+        self.over_sample = SMOTE(random_state=random_state)
+        self.pca = PCA(n_components=pca_components, random_state=random_state)
 
     def __load_data(self, mode=""):
         replace_categories = {2: 1, 1: 0}
@@ -14,6 +18,11 @@ class ExoHuntDataset:
 
         X = data.drop("LABEL", axis=1)
         y = data.loc[:, "LABEL"]
+
+        if mode == "train":
+            X, y = self.over_sample.fit_resample(X, y)
+
+        X = self.pca.fit_transform(X)
         print("[*] Data Loaded successfully!")
         return X, y
 
