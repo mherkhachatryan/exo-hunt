@@ -19,15 +19,14 @@ class ExoHuntDataset:
         X = data.drop("LABEL", axis=1)
         y = data.loc[:, "LABEL"]
 
-        if mode == "train":
-            X, y = self.over_sample.fit_resample(X, y)
-
         X = self.pca.fit_transform(X)
         print("[*] Data Loaded successfully!")
         return X, y
 
     def load_train_data(self):
-        return self.__load_data("train")
+        X, y = self.__load_data("train")
+        X, y = self.over_sample.fit_resample(X, y)
+        return X, y
 
     def load_train_val_data(self, split_size, random_state):
         X, y = self.load_train_data()
