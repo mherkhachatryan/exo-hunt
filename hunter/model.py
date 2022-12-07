@@ -5,18 +5,17 @@ import pickle
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
-from sklearn.metrics import plot_precision_recall_curve
-from sklearn.metrics import plot_roc_curve
 
 models = {
     "GradientBoosting": GradientBoostingClassifier,
-    "RandomForest":     RandomForestClassifier
+    "RandomForest": RandomForestClassifier
 }
 
 
 class ExoHuntModel:
     def __init__(self, model_name="", model_params=None, random_state=None, model_path=""):
         self.model_name = model_name
+        self.evaluation_result = None
         if model_path:
             with open(model_path, "rb") as model_file:
                 self.model = pickle.load(model_file)
@@ -33,18 +32,23 @@ class ExoHuntModel:
         return self.model
 
     def eval(self, eval_x, eval_y):
-        # TODO: Add logging logic to the evaluation results
         pred_y = self.model.predict(eval_x)
-        classification_report(eval_y, pred_y)
-        plot_roc_curve(self.model, eval_x, eval_y)
-        plot_precision_recall_curve(self.model, eval_x, eval_y)
-        plot_roc_curve(self.model, eval_x, eval_y)
-        return self.model
+        self.evaluation_result = classification_report(eval_y, pred_y)
+        return self.evaluation_result
 
-    def save(self, path):
+    def save(self, path, save_eval_only=False):
         if not os.path.exists(path):
             os.makedirs(path)
         file_path = os.path.join(path, f"{self.model_name}--{datetime.now()}.pkl")
-        with open(file_path, 'wb') as file:
-            pickle.dump(self.model, file)
+        evaluation_report_path = os.path.join(path, f"{self.model_name}--classification-report--{datetime.now()}.txt")
+
+        if save_eval_only:
+            with open(evaluation_report_path, 'w') as file:
+                file.writelines(self.evaluation_result)
+        else:
+            with open(file_path, 'wb') as file:
+                pickle.dump(self.model, file)
+
+            with open(evaluation_report_path, 'w') as file:
+                file.writelines(self.evaluation_result)
         print(f"[*] Model saved at {file_path}")
