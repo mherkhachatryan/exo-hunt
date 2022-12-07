@@ -2,8 +2,8 @@ from dataclasses import dataclass
 
 import yaml
 
-from exo_hunt_model import ExoHuntModel
-from exo_hunt_dataset import ExoHuntDataset
+from model import ExoHuntModel
+from preprocessing import ExoHuntDataset
 
 
 @dataclass
@@ -18,7 +18,7 @@ class RunConfigs:
     split_size: float
 
 
-with open("configs.yaml", "r") as f:
+with open("hunter/configs.yaml", "r") as f:
     _configs = yaml.load(f, yaml.FullLoader)
 
 configs = RunConfigs(**_configs)
