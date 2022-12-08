@@ -1,0 +1,13 @@
+save_path: "./logs/RandomForest"
+saved_model_path: "/Users/mher/Codes/ASDS21-MLOps/exo-hunt/logs/RandomForest/RandomForest--2022-12-07 14:04:17.873219.pkl"
+run_mode: "test" # One of ["train", "test"] in the case of train the best model will be saved in the logs file
+random_state: 42
+data_path: "data/" # Path to the Dataset directory
+model: "RandomForest" # One of ["GradientBoosting", "RandomForest"]
+
+# Below are the parameters for RandomForest, for GradientBoosting they should be adjusted accordingly
+model_params:
+  criterion: "gini"
+
+# split size for train/val split, defines val size
+split_size: 0.3
