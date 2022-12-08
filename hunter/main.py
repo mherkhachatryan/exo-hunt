@@ -1,10 +1,14 @@
 import yaml
+import os
+
 
 from validation import RunConfigs
 from model import ExoHuntModel
 from preprocessing import ExoHuntDataset
 
-with open("hunter/configs.yaml", "r") as f:
+configs_path = os.path.join(os.getcwd(), "hunter", "configs.yaml")
+
+with open(configs_path, "r") as f:
     _configs = yaml.load(f, yaml.FullLoader)
 
 configs = RunConfigs(**_configs)
