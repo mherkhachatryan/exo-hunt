@@ -5,10 +5,10 @@ from imblearn.over_sampling import SMOTE
 
 
 class ExoHuntDataset:
-    def __init__(self, dataset_path, random_state=42, pca_components=24):
+    def __init__(self, dataset_path=None, random_state=42):
         self.dataset_path = dataset_path
         self.over_sample = SMOTE(random_state=random_state)
-        self.pca = PCA(n_components=pca_components, random_state=random_state)
+        self.pca = PCA(n_components=24, random_state=random_state)
 
     def __load_data(self, mode="", **kwargs):
         replace_categories = {2: 1, 1: 0}

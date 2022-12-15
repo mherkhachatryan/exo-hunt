@@ -1,5 +1,5 @@
 save_path: "./logs/RandomForest"
-saved_model_path: "/Users/mher/Codes/ASDS21-MLOps/exo-hunt/logs/RandomForest/RandomForest--2022-12-07 14:04:17.873219.pkl"
+saved_model_path: ""
 run_mode: "test" # One of ["train", "test"] in the case of train the best model will be saved in the logs file
 random_state: 42
 data_path: "data/" # Path to the Dataset directory
