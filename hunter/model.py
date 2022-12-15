@@ -1,3 +1,5 @@
+import pandas as pd
+import numpy as np
 from datetime import datetime
 import os
 import pickle
@@ -5,6 +7,8 @@ import pickle
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
+
+from preprocessing import ExoHuntDataset
 
 models = {
     "GradientBoosting": GradientBoostingClassifier,
@@ -35,6 +39,13 @@ class ExoHuntModel:
         pred_y = self.model.predict(eval_x)
         self.evaluation_result = classification_report(eval_y, pred_y)
         return self.evaluation_result
+
+    def predict(self, X):
+        # TODO model is not always trained on 24 components, but we viciously will assume so.
+        if len(X) <= 24:
+            X = np.vstack([X for _ in range(24)])  # appending same values for PCA transformation.
+        X = ExoHuntDataset().pca.fit_transform(X)
+        return int(np.median(self.model.predict(X)))
 
     def save(self, path, save_eval_only=False):
         if not os.path.exists(path):
