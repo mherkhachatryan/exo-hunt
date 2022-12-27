@@ -31,7 +31,7 @@ def test_training(tmpdir):
 
     configs = RunConfigs(**_configs)
 
-    dataset = ExoHuntDataset(configs.data_path, configs.random_state, pca_components=2)
+    dataset = ExoHuntDataset(configs.data_path, configs.random_state)
     model = ExoHuntModel(configs.model, configs.model_params, configs.random_state)
 
     X_train, y_train = dataset._load_mock_data(mode="train", nrows=50)
