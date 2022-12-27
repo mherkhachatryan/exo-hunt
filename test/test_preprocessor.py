@@ -31,7 +31,7 @@ def test_oversample():
 
 def test_pca():
     pca_components = 24
-    dataset = ExoHuntDataset(configs.data_path, configs.random_state, pca_components=pca_components)
+    dataset = ExoHuntDataset(configs.data_path, configs.random_state)
     X, _ = dataset.load_train_data()
 
     feature_size = X.shape[1]
